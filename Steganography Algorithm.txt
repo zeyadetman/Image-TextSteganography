@@ -1,0 +1,48 @@
+convert image into .bmp then convert it using our app the result will be like this:
+numbers in decimal
+============================================
+720        // dimensions 'height'
+720        // dimensions 'width'
+123        // pixel(0,0) R
+124        // pixel(0,0) G
+234        // pixel(0,0) B
+111        // pixel(0,1) R
+134        // pixel(0,1) G
+...
+...
+...
+...
+...
+...
+222	  // pixel(719,719) B
+============================================
+convert all decimal values into binary numbers and change the LSB value to store all bits of our cipher text. 
+
+here's how we hide the text, ex: we'll hide this character 'A' = 65d = 01000001
+
+
+============================================
+720        // dimensions 'height'
+720        // dimensions 'width'
+123  = 01111011      // pixel(0,0) R  will encrypted into 01111010	LSB = 0
+124  = 01111100      // pixel(0,0) G  will encrypted into 01111101	LSB = 1
+234  = 11101010      // pixel(0,0) B  will encrypted into 11101010	LSB = 0
+111  = ........      // pixel(0,1) R					LSB = 0
+134  = ........      // pixel(0,1) G					LSB = 0
+...									LSB = 0
+...									LSB = 0
+...									LSB = 1
+...
+...
+...
+...
+...
+222	  // pixel(719,719) B
+============================================
+
+
+Why LSB?
+Because by changing the least significant bit we will keep the color of the original pixel from changing
+visually, then no one can spot the difference between the modified pixel and the original one by the
+naked eyes. So, by changing the least significant bit we are only changing the least effective bit, so the
+pixel value after modification will either incremented or decremented by one. Very little change isn’t it?

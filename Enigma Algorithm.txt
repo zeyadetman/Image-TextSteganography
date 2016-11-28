@@ -1,0 +1,34 @@
+PLUG
+
+	   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	   ||||||||||||||||||||||||||
+	   ABCDEFGHIJKLMNOPQRSTUVWXYZ
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+INTIAL SYSTEM <A> <A> <A>
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+ROTORS, REFLECTOR AND INVERSES
+
+	   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+Rotor I:   BDFHJLCPRTXVZNYEIWGAKMUSQO
+Rotor II:  AJDKSIRUXBLHWTMCQGZNPYFVOE
+Rotor III: EKMFLGDQVZNTOWYHXUSPAIBRCJ
+Reflector: YRUHQSLDPXNGOKMIEBFZCWVJAT
+Inversed I:TAGBPCSDQEUFVNZHYIXJWLRKOM
+InversedII:AJPCZWRLFBDKOTYUQGENHXMIVS
+InverseIII:UWYGADFPVZBECKMTHXSLRINQOJ
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+'A' in rotor1 --> 'B'  SYSTEM WILL BE <B> <A> <A>
+'B' in rotor2 --> 'J'
+'J' in rotor2 --> 'Z'
+'Z' in reflector --> 'T'
+'T' in inverse3 --> 'L'
+'L' in inverse2 --> 'K'
+'K' in inverse1 --> 'E'
+
+if you want to decrypt the letter 'E' follow those instructions on the intial system values you encrypt by it, in our example <A> <A> <A>
