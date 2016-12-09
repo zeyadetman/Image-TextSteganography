@@ -10,155 +10,181 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace Image_Viewer
+namespace ImageViewer_Desktop_App
 {
-
-    public partial class ImageViewer : Form
+    public partial class ImageViewerApp : Form
     {
-        //public static string GetExtension(string path);
-        public ImageViewer()
+        public ImageViewerApp()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        ///Variables
+        public string usrimgpath;    //store the user image path
+        public string usrtextpath;   //store the user text path
+        public string savtxtfile;    //store the location of saved text file
+        public string savimgfile;    //store the location of saved image file
+        public Bitmap imageco;   //non-important variable - used outside to be public 
+        public Bitmap loadimg;   //non-important variable - used outside to be public
 
-        }
-        public string imagetype,imagepath;                //store the type of file to make the operation on it
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// covert from text to image
+        /// </summary>
+        /// <returns>Bitmap image</returns>
+        public Bitmap converttoimage(Bitmap img,string urtxtpath)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "BMP File|*.bmp|TEXT File|*.txt";
-            
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK) // determine the type of file
+            using (StreamReader file = new StreamReader(urtxtpath))
             {
-                imagepath = ofd.FileName.ToString();              //show the path on textbox
-                textBox1.Text = imagepath;           
-                if (Path.GetExtension(ofd.FileName) == ".bmp")   // if file -> bmp ,then imagetype -> bmp ,else imagetype ->text 
+                int wid = int.Parse(file.ReadLine());
+                int hei = int.Parse(file.ReadLine());
+                img = new Bitmap(wid, hei);
+                int r, g, b;
+                for (int i = 0; i < hei; i++)
                 {
-                    imagetype = "bmp";
+                    for (int j = 0; j < wid; j++)
+                    {
+                        r = int.Parse(file.ReadLine());
+                        g = int.Parse(file.ReadLine());
+                        b = int.Parse(file.ReadLine());
+                        img.SetPixel(j, i, Color.FromArgb(r, g, b));
+
+                    }
                 }
-                else
-                {
-                    imagetype = "text";
-                }
-                
+
             }
-
-
+            return img;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
 
-        string file2path;               // file2 path based on type of file1
-        private void button1_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Open The image and display it on App
+        /// </summary>
+        private void imageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dest = new OpenFileDialog();
-            if (imagetype == "bmp")
+            OpenFileDialog usrimg = new OpenFileDialog();
+            usrimg.Filter = "Image | *.jpg; *.jpeg; *.jpe; *.jfif; *.bmp; *.png";
+            if (usrimg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                dest.Filter = "TEXT File|*.txt";
-                if (dest.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {    
+                usrimgpath = usrimg.FileName.ToString();              //Open the user image
+            }
+            if (usrimgpath != null)            //check if the image opened or not to display it
+            {
+                pictureBox1.Image = Image.FromFile(usrimgpath);
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+        
+        /// <summary>
+        /// Open The text, and open the image on App
+        /// </summary>
+        private void textToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog usrtext = new OpenFileDialog();
+            usrtext.Filter = "Text | *.txt";
+            if (usrtext.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                usrtextpath = usrtext.FileName.ToString();              //Load the user text file
+            }
+            if (usrtextpath != null)
+            {
+                Bitmap im;
+                im = converttoimage(imageco, usrtextpath);
+                pictureBox1.Image = im;
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+
+        /// <summary>
+        /// determine saved text location
+        /// </summary>
+        private void asTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usrimgpath != null)
+            {
+            SaveFileDialog saveastext = new SaveFileDialog();
+            saveastext.Filter = "Text|*.txt";
+            saveastext.Title = "Save it as text";
+            saveastext.ShowDialog();
+            if (saveastext.FileName != null)
+            {
+                System.IO.FileStream fs = (System.IO.FileStream)saveastext.OpenFile();
+                fs.Close();
+            }
+            
+                savtxtfile = saveastext.FileName.ToString();
+                using (StreamWriter file = new StreamWriter(savtxtfile, true))
+                {
+                    Bitmap loadimg;
+                    loadimg = new Bitmap(usrimgpath, true);
+                    file.WriteLine(loadimg.Width);
+                    file.WriteLine(loadimg.Height);
+                    for (int i = 0; i < loadimg.Height; i++)
+                    {
+                        for (int j = 0; j < loadimg.Width; j++)
+                        {
+                            Color pixelColor = loadimg.GetPixel(j, i);
+                            Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
+                            file.WriteLine(pixelColor.R);
+                            file.WriteLine(pixelColor.G);
+                            file.WriteLine(pixelColor.B);
+                        }
+                    }
+                    file.Close();
                 }
-                file2path = dest.FileName.ToString();              //show the path of destination file on textbox2
-                textBox2.Text = file2path;
-                
             }
             else
             {
-                MessageBox.Show("Your Image will be saved Automatically in name 'Image' ");
-
-                //dest.Filter = "BMP File|*.bmp";
-                //if (dest.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                //{   
-                //}
-                file2path = "";
+                MessageBox.Show("Please load an image first.");    
             }
 
-            }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            
         }
 
-        public Bitmap bmpimage,picturepath;
-        int iheight = 0, iwidth = 0;   //to store height and width of the image
-        public int lines;
-        public string curline;
-        public int curlin, wid, hei;
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// determine saved image location
+        /// </summary>
+        private void asImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (imagetype == "bmp")             //covert from .bmp to .txt file
+            if (usrtextpath != null)
             {
-                System.IO.StreamWriter file = new System.IO.StreamWriter(file2path);
-                picturepath = bmpimage;
-                bmpimage = new Bitmap(imagepath, true);
-                iwidth = bmpimage.Width; iheight = bmpimage.Height;
-                
-                file.WriteLine(iwidth);
-                file.WriteLine(iheight);
-                for (int i = 0; i < bmpimage.Height; i++)
+                SaveFileDialog saveasimg = new SaveFileDialog();
+                saveasimg.Filter = "Image |*.PNG";
+                saveasimg.Title = "Save it as image";
+                saveasimg.ShowDialog();
+                if (saveasimg.FileName != null)
                 {
-                    for (int j = 0; j < bmpimage.Width; j++)
-                    {
-                        Color pixelColor = bmpimage.GetPixel(j, i);
-                        Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
-                        file.WriteLine(pixelColor.R);
-                        file.WriteLine(pixelColor.G);
-                        file.WriteLine(pixelColor.B);
-                    }
+                    System.IO.FileStream fs = (System.IO.FileStream)saveasimg.OpenFile();
+                    fs.Close();
                 }
-
-                pictureBox1.Image = Image.FromFile(imagepath);
+                Bitmap reloadimg;
+                reloadimg = converttoimage(loadimg, usrtextpath);
+                pictureBox1.Image = reloadimg;
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                savimgfile = saveasimg.FileName.ToString();
+                pictureBox1.Image.Save(savimgfile, System.Drawing.Imaging.ImageFormat.Png);
 
-                file.Close();   
             }
-            else                   //convert from .txt to .bmp file
+            else
             {
-
-                using (System.IO.StreamReader file1 = new System.IO.StreamReader(imagepath))
-                {
-
-                    wid = int.Parse(file1.ReadLine());
-                    hei = int.Parse(file1.ReadLine());
-                    Bitmap img = new Bitmap(wid, hei);
-                    int r, g, b, k = 2;
-                    for (int i = 0; i < hei; i++)
-                    {
-                        for (int j = 0; j < wid; j++)
-                        {
-                            r = int.Parse(file1.ReadLine());
-                            g = int.Parse(file1.ReadLine());
-                            b = int.Parse(file1.ReadLine());
-                            img.SetPixel(j, i, Color.FromArgb(r, g, b));
-
-                        }
-                    }
-                    pictureBox1.Image = img;
-                    pictureBox1.Image.Save("Image.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                }
-
+                MessageBox.Show("Please Load a text first.");
             }
+            
+
         }
+
+         
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
-
-       
+         
     }
 }
