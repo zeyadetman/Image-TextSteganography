@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Image_Viewer
+namespace ImageViewer_Desktop_App
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Image_Viewer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ImageViewer());
+            Application.Run(new ImageViewerApp());
         }
     }
 }
