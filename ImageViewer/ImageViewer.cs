@@ -106,13 +106,14 @@ namespace ImageViewer_Desktop_App
             saveastext.Filter = "Text|*.txt";
             saveastext.Title = "Save it as text";
             saveastext.ShowDialog();
+            savtxtfile = saveastext.FileName.ToString();
             if (saveastext.FileName != null)
             {
                 System.IO.FileStream fs = (System.IO.FileStream)saveastext.OpenFile();
-                fs.Close();
+                fs.Close();   
             }
-            
-                savtxtfile = saveastext.FileName.ToString();
+            if (savtxtfile != null)
+            {
                 using (StreamWriter file = new StreamWriter(savtxtfile, true))
                 {
                     Bitmap loadimg;
@@ -132,6 +133,9 @@ namespace ImageViewer_Desktop_App
                     }
                     file.Close();
                 }
+            }
+            
+                
             }
             else
             {
@@ -167,7 +171,15 @@ namespace ImageViewer_Desktop_App
             }
             else
             {
-                MessageBox.Show("Please Load a text first.");
+                SaveFileDialog saveasimg = new SaveFileDialog();
+                saveasimg.Filter = "Image |*.PNG";
+                saveasimg.Title = "Save it as image";
+                saveasimg.ShowDialog();
+                if (saveasimg.FileName != null)
+                {
+                    File.Copy(usrimgpath, saveasimg.FileName.ToString());
+                }
+                
             }
             
 
