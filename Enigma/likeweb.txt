@@ -1,0 +1,68 @@
+INCLUDE Irvine32.inc
+.data
+;ROTORS, REFLECTOR AND INVERSES
+IntialSys  byte "<A> <A> <A>",0
+plug       byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
+Alphasys   byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
+RotorI     byte	"BDFHJLCPRTXVZNYEIWGAKMUSQO",0
+RotorII    byte	"AJDKSIRUXBLHWTMCQGZNPYFVOE",0
+RotorIII   byte	"EKMFLGDQVZNTOWYHXUSPAIBRCJ",0
+Reflector  byte	"YRUHQSLDPXNGOKMIEBFZCWVJAT",0
+InversedI  byte	"TAGBPCSDQEUFVNZHYIXJWLRKOM",0
+InversedII byte	"AJPCZWRLFBDKOTYUQGENHXMIVS",0
+InverseIII byte "UWYGADFPVZBECKMTHXSLRINQOJ",0
+plugspace  byte "                          ",0
+plgfinish  byte	"Finish"
+x byte ?
+y byte ?
+;end
+
+
+.code
+main PROC
+	call plugsdisplay
+	exit
+main ENDP
+
+plugsdisplay PROC uses eax ecx esi
+	mov esi,offset plug
+	mov ecx,lengthof plug
+	alphaloop:
+		mov al,[esi]
+		call writechar
+		mov al,32
+		call writechar
+		inc esi
+	loop alphaloop
+	ret
+plugsdisplay endp
+
+cngchars proc uses edx
+	mov dl,x
+	mov dh,y
+	call gotoxy
+	ret
+cngchars endp
+
+cngplug proc uses esi ecx eax ebx edx
+invoke plugsdisplay, offset plug
+	inc dh
+	invoke cngchars, dl, dh
+	invoke plugsdisplay, offset plugspace
+	inc dh
+	invoke cngchars, dl, dh
+	invoke plugsdisplay, offset alphasys
+	invoke cngchars, 29, 15
+	mov edx, offset plgfinish
+	call writestring
+	invoke getinfo
+	ret
+
+cngplug endp
+
+
+
+
+
+
+END main

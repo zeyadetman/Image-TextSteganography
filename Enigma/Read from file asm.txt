@@ -1,0 +1,38 @@
+.data
+	buffer BYTE BUFFER_SIZE DUP(0)		; file content 
+	filename BYTE 1000 DUP(0), 0		; file path
+	fileHandle HANDLE ?					; file handle
+	filesize DWORD 0					; file content's size
+.code
+
+OpenFile PROC
+	mov edx,OFFSET filename
+	call OpenInputFile
+	mov fileHandle,eax
+	cmp eax,INVALID_HANDLE_VALUE; error opening file?
+	jne file_ok                 ; no: skip
+	mWrite <"Cannot open file",0dh,0ah>
+	jmp quit                    ; and quit
+	file_ok:
+								; Read the file into a buffer.
+	mov edx,OFFSET buffer
+	mov ecx,BUFFER_SIZE
+	call ReadFromFile
+	jnc check_buffer_size       ; error reading?
+	mWrite "Error reading file. "
+	call WriteWindowsMsg
+	jmp close_file
+	check_buffer_size:
+	cmp eax,BUFFER_SIZE         ; buffer large enough?
+	jb buf_size_ok ; yes
+	mWrite <"Error: Buffer too small for the file",0dh,0ah>
+	jmp quit                    ; and quit
+	buf_size_ok:
+	mov buffer[eax],0           ; insert null terminator
+	mov filesize, eax           ; display file size
+	close_file:
+	mov eax,fileHandle
+	call CloseFile
+	quit:
+	RET
+OpenFile ENDP
