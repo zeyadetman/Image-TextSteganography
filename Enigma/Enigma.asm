@@ -1,7 +1,7 @@
 INCLUDE Irvine32.inc
 .data
 ;ROTORS, REFLECTOR AND INVERSES
-sysmode byte 3 dup(?)
+sysmode    byte 3 dup(?)
 IntialSys  byte "<A> <A> <A>",0
 plug       byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
 alphasys   byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
@@ -13,12 +13,16 @@ InversedI  byte	"TAGBPCSDQEUFVNZHYIXJWLRKOM",0
 InversedII byte	"AJPCZWRLFBDKOTYUQGENHXMIVS",0
 InverseIII byte "UWYGADFPVZBECKMTHXSLRINQOJ",0
 plugspace  byte "||||||||||||||||||||||||||",0
-nextpage   byte	"Press 'Enter' to continue...",0
+nextpage   byte	"Press 'Enter' to go to the next page...",0
 dis1       byte "                         This is The plugs system:--",0
 dis2       byte "You can change this system, enter 1st character then the 2nd:",0
 dis3       byte "                    ----------The plugs changed!----------",0
 dis4       byte "                   This is The Intial System Mode for Rotors",0
 dis5       byte "Enter your system: <",0
+dis6       byte "Enter Text: ",0
+dis7       byte "Encrypted Text: ",0
+infuser    byte 1000 dup(?)
+infuserln  dword ?
 x byte ?
 y byte ?
 ;end
@@ -29,6 +33,8 @@ main PROC
 	call page1
 	call clearscreen
 	call page2
+	call clearscreen
+	call page3
 	exit
 main ENDP
 
@@ -147,5 +153,21 @@ page2 proc uses edx esi
 	call crlf
 	ret
 page2 endp
+
+page3 proc uses edx eax ecx
+	mov edx, offset dis6
+	call writestring
+	mov edx,offset infuser
+	mov ecx,lengthof infuser
+	call readstring
+	mov infuserln,eax
+	call crlf
+	mov edx,offset dis7
+	call writestring
+	call crlf
+	call crlf
+	ret
+page3 endp
+
 
 END main

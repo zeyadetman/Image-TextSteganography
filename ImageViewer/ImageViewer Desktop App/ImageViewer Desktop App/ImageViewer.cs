@@ -241,6 +241,7 @@ namespace ImageViewer_Desktop_App
             if (encryptedfile != null)
             {
                     encryptedfiletext = System.IO.File.ReadAllText(encryptedfile);
+                    //MessageBox.Show(encryptedfiletext);
             }
 
         }
