@@ -20,17 +20,6 @@ Inversed I:TAGBPCSDQEUFVNZHYIXJWLRKOM
 InversedII:AJPCZWRLFBDKOTYUQGENHXMIVS
 InverseIII:UWYGADFPVZBECKMTHXSLRINQOJ
 
-
-	     ABCDEFGHIJKLMNOPQRSTUVWXYZ
-arotor byte "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-brotor byte "AJDKSIRUXBLHWTMCQGZNPYFVOE"
-crotor byte "BDFHJLCPRTXVZNYEIWGAKMUSQO"
-reflct byte "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-arevrs byte "UWYGADFPVZBECKMTHXSLRINQOJ"
-brevrs byte "AJPCZWRLFBDKOTYUQGENHXMIVS"
-crevrs byte "TAGBPCSDQEUFVNZHYIXJWLRKOM"
-
-t
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
 'A' in rotor1 --> 'B'  SYSTEM WILL BE <B> <A> <A>
@@ -39,6 +28,6 @@ t
 'Z' in reflector --> 'T'
 'T' in inverse3 --> 'L'
 'L' in inverse2 --> 'K'
-'K' in inverse1 --> 'E'
+'K' in inverse1 --> 'U'
 
-if you want to decrypt the letter 'E' follow those instructions on the intial system values you encrypt by it, in our example <A> <A> <A>
+if you want to decrypt the letter 'U' follow those instructions on the intial system values you encrypt by it, in our example <A> <A> <A>
