@@ -125,21 +125,40 @@ namespace ImageViewer_Desktop_App
                 {
                     Bitmap loadimg;
                     loadimg = new Bitmap(usrimgpath, true);
-                    file.WriteLine(loadimg.Width);
-                    file.WriteLine(loadimg.Height);
+                    file.WriteLine(loadimg.Width.ToString("D3"));
+                    file.WriteLine(loadimg.Height.ToString("D3"));
                     for (int i = 0; i < loadimg.Height; i++)
                     {
                         for (int j = 0; j < loadimg.Width; j++)
                         {
                             Color pixelColor = loadimg.GetPixel(j, i);
                             Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
-                            file.WriteLine(pixelColor.R);
-                            file.WriteLine(pixelColor.G);
-                            file.WriteLine(pixelColor.B);
+                            file.WriteLine(pixelColor.R.ToString("D3"));
+                            file.WriteLine(pixelColor.G.ToString("D3"));
+                            file.WriteLine(pixelColor.B.ToString("D3"));
                         }
                     }
                     file.Close();
                 }
+                //using (StreamWriter file = new StreamWriter(savtxtfile, true))
+                //{
+                //    Bitmap loadimg;
+                //    loadimg = new Bitmap(usrimgpath, true);
+                //    file.WriteLine(loadimg.Width);
+                //    file.WriteLine(loadimg.Height);
+                //    for (int i = 0; i < loadimg.Height; i++)
+                //    {
+                //        for (int j = 0; j < loadimg.Width; j++)
+                //        {
+                //            Color pixelColor = loadimg.GetPixel(j, i);
+                //            Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
+                //            file.WriteLine(pixelColor.R);
+                //            file.WriteLine(pixelColor.G);
+                //            file.WriteLine(pixelColor.B);
+                //        }
+                //    }
+                //    file.Close();
+                //}
             }
             
                 
@@ -208,10 +227,10 @@ namespace ImageViewer_Desktop_App
         /// <summary>
         /// Assembly Part
         /// </summary>
-        
-        [DllImport("Project.dll")]
+
+        [DllImport("Project.Native.x86.dll")]
         private static extern IntPtr Encrypt([In, Out] char[] path, [In, Out] char[] text);
-        [DllImport("Project.dll")]
+        [DllImport("Project.Native.x86.dll")]
         private static extern IntPtr Decrypt([In] char[] path);
 
         private void Decryption(string path_str)
@@ -262,6 +281,7 @@ namespace ImageViewer_Desktop_App
 
         private void encryptToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(encryptedfiletext);
             if (encryptedfiletext != null && usrtextpath != null)
             {
                 Encryption(usrtextpath, encryptedfiletext);
