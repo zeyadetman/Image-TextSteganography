@@ -228,9 +228,9 @@ namespace ImageViewer_Desktop_App
         /// Assembly Part
         /// </summary>
 
-        [DllImport("Project.Native.x86.dll")]
+        [DllImport("Project.dll")]
         private static extern IntPtr Encrypt([In, Out] char[] path, [In, Out] char[] text);
-        [DllImport("Project.Native.x86.dll")]
+        [DllImport("Project.dll")]
         private static extern IntPtr Decrypt([In] char[] path);
 
         private void Decryption(string path_str)
@@ -274,28 +274,28 @@ namespace ImageViewer_Desktop_App
         {
             if (encryptedfiletext != null)
             {
-                Encryption(usrtextpath, encryptedfiletext);
+                Encryption(usrtextpath.ToString(), encryptedfiletext.ToString());
             }
             
         }
 
         private void encryptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(encryptedfiletext);
+            MessageBox.Show(usrtextpath.ToString());
             if (encryptedfiletext != null && usrtextpath != null)
             {
-                Encryption(usrtextpath, encryptedfiletext);
+                Encryption(usrtextpath.ToString(), encryptedfiletext);
             }
-            else if (encryptedtextbox != null && usrtextpath != null)
+            else
             {
-                Encryption(usrtextpath, encryptedtextbox);
+                Encryption(usrtextpath.ToString(), encryptedtextbox);
             }
 
         }
 
         private void decryptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           Decryption(usrtextpath);
+            Decryption(usrtextpath.ToString());
         }
  
     }

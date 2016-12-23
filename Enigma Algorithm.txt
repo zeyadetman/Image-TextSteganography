@@ -12,16 +12,14 @@ ROTORS, REFLECTOR AND INVERSES
 
 	   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
-Rotor I:   BDFHJLCPRTXVZNYEIWGAKMUSQO
+Rotor I:   BRCJEKMFLGDQVZNTOWYHXUSPAI
 Rotor II:  AJDKSIRUXBLHWTMCQGZNPYFVOE
-Rotor III: EKMFLGDQVZNTOWYHXUSPAIBRCJ
+Rotor III: BDFHJLCPRTXVZNYEIWGAKMUSQO
 Reflector: YRUHQSLDPXNGOKMIEBFZCWVJAT
-Inversed I:TAGBPCSDQEUFVNZHYIXJWLRKOM
-InversedII:AJPCZWRLFBDKOTYUQGENHXMIVS
-InverseIII:UWYGADFPVZBECKMTHXSLRINQOJ
+GGGGG	JCJXB	
+JCJXB	GGGGG
 
-+++++++++++++++++++++++++++++++++++++++++++++++++
-
+++++++++++++++++++++++++++++++++++++++++++++++++++
 'A' in rotor1 --> 'B'  SYSTEM WILL BE <B> <A> <A>
 'B' in rotor2 --> 'J'
 'J' in rotor2 --> 'Z'
