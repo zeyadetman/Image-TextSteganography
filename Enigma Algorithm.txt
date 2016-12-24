@@ -12,7 +12,7 @@ ROTORS, REFLECTOR AND INVERSES
 
 	   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹
-Rotor I:   BRCJEKMFLGDQVZNTOWYHXUSPAI
+Rotor I:   EKMFLGDQVZNTOWYHXUSPAIBRCJ
 Rotor II:  AJDKSIRUXBLHWTMCQGZNPYFVOE
 Rotor III: BDFHJLCPRTXVZNYEIWGAKMUSQO
 Reflector: YRUHQSLDPXNGOKMIEBFZCWVJAT

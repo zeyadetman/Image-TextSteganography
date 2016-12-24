@@ -1,17 +1,14 @@
 INCLUDE Irvine32.inc
 .data
 ;ROTORS, REFLECTOR AND INVERSES
-sysmode    byte 3 dup(?)
+sysmode    byte 3 dup(?),0
 IntialSys  byte "<A> <A> <A>",0
 plug       byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
 alphasys   byte "ABCDEFGHIJKLMNOPQRSTUVWXYZ",0
-RotorI     byte	"BDFHJLCPRTXVZNYEIWGAKMUSQO",0
+RotorI     byte	"EKMFLGDQVZNTOWYHXUSPAIBRCJ",0
 RotorII    byte	"AJDKSIRUXBLHWTMCQGZNPYFVOE",0
-RotorIII   byte	"EKMFLGDQVZNTOWYHXUSPAIBRCJ",0
+RotorIII   byte	"BDFHJLCPRTXVZNYEIWGAKMUSQO",0
 Reflector  byte	"YRUHQSLDPXNGOKMIEBFZCWVJAT",0
-InversedI  byte	"TAGBPCSDQEUFVNZHYIXJWLRKOM",0
-InversedII byte	"AJPCZWRLFBDKOTYUQGENHXMIVS",0
-InverseIII byte "UWYGADFPVZBECKMTHXSLRINQOJ",0
 plugspace  byte "||||||||||||||||||||||||||",0
 nextpage   byte	"Press 'Enter' to go to the next page...",0
 dis1       byte "                         This is The plugs system:--",0
@@ -21,10 +18,16 @@ dis4       byte "                   This is The Intial System Mode for Rotors",0
 dis5       byte "Enter your system: <",0
 dis6       byte "Enter Text: ",0
 dis7       byte "Encrypted Text: ",0
-infuser    byte 1000 dup(?)
+infuser    byte 1000 dup(?),0
 infuserln  dword ?
 x byte ?
 y byte ?
+a byte ?
+b byte ?
+countr dword 0
+rot1 byte 0
+rot2 byte 0
+rot3 byte 0
 ;end
 
 
@@ -35,6 +38,9 @@ main PROC
 	call page2
 	call clearscreen
 	call page3
+	call encrypt
+	mov edx,offset RotorI
+	call writestring
 	exit
 main ENDP
 
@@ -169,5 +175,74 @@ page3 proc uses edx eax ecx
 	ret
 page3 endp
 
+plugproc proc uses edx esi eax ecx edi
+mov edi,offset plug
+mov esi,offset alphasys
+mov ecx,26
+mov countr,0
+alpha:
+mov bl,[esi]
+cmp bl,a
+je eq1
+inc countr
+inc esi
+loop alpha
+eq1:
+add edi,countr
+mov ah,[edi]
+mov a,ah
+mov al,a
+	ret
+plugproc endp
+
+roto1 proc uses esi ebx
+mov esi,offset sysmode
+mov bl,[esi]
+sub bl,65
+mov rot1,0
+mov rot1,bl
+movzx ecx,rot1
+mov esi,offset RotorI
+cmp rot1,0
+je out1
+r1:
+
+innr1:
+
+loop innr1
+
+loop r1
+out1:
+	ret
+roto1 endp
+
+roto2 proc uses esi ebx
+mov esi,offset sysmode
+mov bl,[esi+1]
+sub bl,65
+mov rot2,0
+mov rot2,bl
+	ret
+roto2 endp
+
+roto3 proc uses esi ebx
+mov esi,offset sysmode
+mov bl,[esi+2]
+sub bl,65
+mov rot3,0
+mov rot3,bl
+	ret
+roto3 endp
+
+encrypt proc uses esi ebx 
+mov esi,offset infuser
+mov bl,[esi]
+mov a,bl
+call plugproc
+call roto1
+call roto2
+call roto3
+	ret
+encrypt endp
 
 END main
