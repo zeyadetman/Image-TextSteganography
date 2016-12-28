@@ -26,7 +26,7 @@ main PROC
 	call writestring
 	call readint
 	CALL CRLF
-	add al,4
+	add al,' '
 	mov n,al
 	mov edx,offset str3
 	call writestring
