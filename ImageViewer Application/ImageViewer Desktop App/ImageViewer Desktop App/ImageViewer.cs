@@ -140,25 +140,6 @@ namespace ImageViewer_Desktop_App
                     }
                     file.Close();
                 }
-                //using (StreamWriter file = new StreamWriter(savtxtfile, true))
-                //{
-                //    Bitmap loadimg;
-                //    loadimg = new Bitmap(usrimgpath, true);
-                //    file.WriteLine(loadimg.Width);
-                //    file.WriteLine(loadimg.Height);
-                //    for (int i = 0; i < loadimg.Height; i++)
-                //    {
-                //        for (int j = 0; j < loadimg.Width; j++)
-                //        {
-                //            Color pixelColor = loadimg.GetPixel(j, i);
-                //            Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, pixelColor.B);
-                //            file.WriteLine(pixelColor.R);
-                //            file.WriteLine(pixelColor.G);
-                //            file.WriteLine(pixelColor.B);
-                //        }
-                //    }
-                //    file.Close();
-                //}
             }
             
                 
@@ -237,7 +218,7 @@ namespace ImageViewer_Desktop_App
         {
             var path = path_str.ToCharArray();
             var s = Decrypt(path);
-            MessageBox.Show(Marshal.PtrToStringAnsi(s));
+            MessageBox.Show(Marshal.PtrToStringAnsi(s) + Marshal.PtrToStringAnsi(s).Length);
         }
 
         private void Encryption(string path_str, string text)
@@ -281,7 +262,7 @@ namespace ImageViewer_Desktop_App
 
         private void encryptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(usrtextpath.ToString());
+            MessageBox.Show("saved location: "+ usrtextpath.ToString());
             if (encryptedfiletext != null && usrtextpath != null)
             {
                 Encryption(usrtextpath.ToString(), encryptedfiletext);

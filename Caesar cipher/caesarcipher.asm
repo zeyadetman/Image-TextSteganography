@@ -11,22 +11,33 @@ str1 byte "Enter the text: ",0
 str2 byte "Enter the key: ",0
 str3 byte "Press '1' to encrypt, and '0' to decrypt : ",0
 str4 byte "The Ciphered text is : ",0
+path byte "C:\Users\zeyadetman\Desktop\text.txt", 0
+handl dword 0
 
 .code
 main PROC
 	mov edx,offset str1
 	call writestring
-	mov edx,offset inuser
+	;;;
+	mov edx, offset path
+	call openinputfile
+	mov handl, eax
+	mov edx, offset inuser
 	mov ecx,lengthof inuser
-	call readstring
+	call readfromfile
+	;;;
+	;mov edx,offset inuser
+	;mov ecx,lengthof inuser
+	;call readstring
 	CALL TOUP
 	CALL CRLF
 	mov t,eax
 	mov edx,offset str2
 	call writestring
+	mov eax,0
 	call readint
 	CALL CRLF
-	add al,' '
+	add al,3
 	mov n,al
 	mov edx,offset str3
 	call writestring
@@ -46,6 +57,10 @@ main PROC
 	call writestring
 	CALL CRLF
 	CALL CRLF
+	;;
+	mov eax, handl
+	call closefile
+	;;
 	exit
 main ENDP
 

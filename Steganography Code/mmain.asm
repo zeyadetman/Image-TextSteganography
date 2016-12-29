@@ -6,10 +6,10 @@ INCLUDE macros.inc
 	handleP DWORD 0
 	overP DWORD 0
 	readP DWORD 0
-.code
 
+.code
 Decrypt PROC path: PTR BYTE
-	invoke CreateFile, path,  3, 0, NULL, 3, 3, NULL
+	invoke CreateFile, path,  3, 0, NULL, 3, 3, NULL			;open file
 	mov handleP, eax
 	invoke ReadFile, handleP,  offset buf, 5, offset readP, NULL
 	mov ebx, 10
@@ -43,7 +43,7 @@ Decrypt PROC path: PTR BYTE
 	mov edx, 3
 	mul edx
 	mov ebx, 0
-	mov edx, 0
+	mov edx, 0			;counter
 	mov ecx, eax
 	mov eax, 0
 	iterate:
@@ -55,11 +55,11 @@ Decrypt PROC path: PTR BYTE
 		shl eax, 1
 		or eax, ebx
 		push edx
-		inc edx
-		and edx, 7
+		inc edx				;increment counter
+		and edx, 7			;check divisable by 8
 		cmp edx, 0
 		pop edx
-		jne continue
+		jne continue		;not divisable
 		cmp al, 0
 		je close
 		mov [esi], al
@@ -71,6 +71,7 @@ Decrypt PROC path: PTR BYTE
 	close:
 	invoke CloseHandle, handleP
 	mov eax, offset text
+	
 	ret
 Decrypt ENDP
 
@@ -168,3 +169,5 @@ mov eax, 1 ; Return true to caller.
 ret
 DllMain ENDP
 END DllMain
+\ No newline at end of file
+\ No newline at end of file
