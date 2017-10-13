@@ -6,3 +6,8 @@ An image steganography by converting the image into text of pixels and use the L
 -	Assembly x86:  Encryption and Decryption (Steganography).
 -	Assembly x86: Encryption and Decryption (Cryptography).
 -	Assembly x86: Linking between Assembly code and C#.
+
+
+## To contribute:
+1. [ ] replace the caesar cipher by a strong cipher algorithm.
+1. [ ] add more features.
